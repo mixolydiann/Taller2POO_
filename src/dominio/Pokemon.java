@@ -30,13 +30,8 @@ public class Pokemon {
         this.defensaEspecial = defensaEspecial;
         this.velocidad = velocidad;
         this.tipo = tipo;
-        this.estado = "Vivo"; // Por defecto, un Pokémon capturado o leído nuevo está Vivo
+        this.estado = "Vivo";
     }
-
-    // Método utilitario para los combates
-    public int obtenerSumaStats() {
-        return vida + ataque + defensa + ataqueEspecial + defensaEspecial + velocidad;
-    }
-
-    // (Aquí irían todos los Getters y Setters)
+    
+    
 }
