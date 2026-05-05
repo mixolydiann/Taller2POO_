@@ -19,7 +19,14 @@ public class Gimnasio {
         this.equipoRival = new ArrayList<>();
     }
     
-    //getters setters blablabla
+    public void agregarPokemonRival(Pokemon pokemao){
+    	equipoRival.add(pokemao);
+    }
+
+	public ArrayList<Pokemon> getEquipoRival() {
+		return equipoRival;
+	}
+    
     
     
 }
