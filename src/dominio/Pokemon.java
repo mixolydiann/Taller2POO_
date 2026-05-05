@@ -40,6 +40,28 @@ public class Pokemon {
 	public String getNombre() {
 		return nombre;
 	}
-    
+	
+	// Agregados para el sistema de combate
+	public String getTipo() {
+		return tipo;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	// Metodo para decidir quien gana
+	public int getSumaStats() {
+		return vida + ataque + defensa + ataqueEspecial + defensaEspecial + velocidad;
+	}
+	
+	// formatea la info para la opcion "revisar equipo"
+	public String getInfoEquipo() {
+		return nombre + "|" + tipo + "|Stats totales: " + getSumaStats();
+	}
     
 }
