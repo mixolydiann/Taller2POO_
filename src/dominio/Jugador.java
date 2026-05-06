@@ -19,4 +19,11 @@ public class Jugador {
         this.pc = new ArrayList<>();
     }
     
+    public ArrayList<Pokemon> getEquipo() {
+        return equipo;
+    }
+    
+    public String getApodo() {
+        return apodo;
+    }
 }

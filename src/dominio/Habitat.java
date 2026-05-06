@@ -20,11 +20,8 @@ public class Habitat {
 		return pokemonsSalvajes;
 	}
 
-
 	public void agregarPokemon(Pokemon p) {
 		this.pokemonsSalvajes.add(p);
 	}
-	
-	
 	
 }

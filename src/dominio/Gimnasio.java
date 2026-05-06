@@ -27,6 +27,16 @@ public class Gimnasio {
 		return equipoRival;
 	}
     
+    public String getNombreLider() {
+        return nombreLider;
+    }
     
+    public String getEstado() {
+        return estado;
+    }
+    
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
     
 }
