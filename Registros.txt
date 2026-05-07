@@ -1,0 +1,9 @@
+vicenteguerra;none
+Zubat;Vivo
+Excadrill;Vivo
+Mawile;Vivo
+Aggron;Vivo
+Gigalith;Vivo
+Minior;Vivo
+Spiritomb;Vivo
+Slugma;Vivo

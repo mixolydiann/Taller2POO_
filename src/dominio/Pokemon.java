@@ -40,6 +40,48 @@ public class Pokemon {
 	public String getNombre() {
 		return nombre;
 	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public double getPorcentajeAparicion() {
+		return porcentajeAparicion;
+	}
+
+	public int getVida() {
+		return vida;
+	}
+
+	public int getAtaque() {
+		return ataque;
+	}
+
+	public int getDefensa() {
+		return defensa;
+	}
+
+	public int getAtaqueEspecial() {
+		return ataqueEspecial;
+	}
+
+	public int getDefensaEspecial() {
+		return defensaEspecial;
+	}
+
+	public int getVelocidad() {
+		return velocidad;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
     
-    
+	public int getSumaStats() {
+		return vida + ataque + defensa + ataqueEspecial + defensaEspecial + velocidad;
+	}
 }

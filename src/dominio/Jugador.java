@@ -18,5 +18,25 @@ public class Jugador {
         this.equipo = new ArrayList<>();
         this.pc = new ArrayList<>();
     }
+
+	public String getApodo() {
+		return apodo;
+	}
+
+	public int getMedallas() {
+		return medallas;
+	}
+
+	public ArrayList<Pokemon> getEquipo() {
+		return equipo;
+	}
+
+	public ArrayList<Pokemon> getPc() {
+		return pc;
+	}
+
+	public void setMedallas(int medallas) {
+		this.medallas = medallas;
+	}
     
 }
