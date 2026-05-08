@@ -39,4 +39,11 @@ public class Jugador {
 		this.medallas = medallas;
 	}
     
+    public ArrayList<Pokemon> getEquipo() {
+        return equipo;
+    }
+    
+    public String getApodo() {
+        return apodo;
+    }
 }
