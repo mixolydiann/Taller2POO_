@@ -40,17 +40,29 @@ public class Pokemon {
 	public String getNombre() {
 		return nombre;
 	}
+	
 
 	public String getEstado() {
 		return estado;
 	}
 
+	// formatea la info para la opcion "revisar equipo"
+	public String getInfoEquipo() {
+		return nombre + "|" + tipo + "|Stats totales: " + getSumaStats();
+	}
+    
 	public double getPorcentajeAparicion() {
 		return porcentajeAparicion;
 	}
 
 	public int getVida() {
 		return vida;
+	}
+	
+	
+	
+	public void setVida(int vida) {
+		this.vida = vida;
 	}
 
 	public int getAtaque() {

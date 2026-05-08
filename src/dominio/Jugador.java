@@ -5,26 +5,28 @@ import java.util.ArrayList;
 public class Jugador {
     
     private String apodo;
-    private int medallas;
+    private int nmedallas;
+    
     
     // Colecciones para manejar los Pokémon del usuario
     private ArrayList<Pokemon> equipo; // Máximo 6 Pokémon permitidos aquí
     private ArrayList<Pokemon> pc;     // El resto de Pokémon capturados van aquí
     
     // Constructor
-    public Jugador(String apodo, int medallas) {
+    public Jugador(String apodo, int nmedallas) {
         this.apodo = apodo;
-        this.medallas = medallas;
+        this.nmedallas = nmedallas;
         this.equipo = new ArrayList<>();
         this.pc = new ArrayList<>();
     }
-
+    
+    
 	public String getApodo() {
 		return apodo;
 	}
 
 	public int getMedallas() {
-		return medallas;
+		return nmedallas;
 	}
 
 	public ArrayList<Pokemon> getEquipo() {
@@ -35,8 +37,21 @@ public class Jugador {
 		return pc;
 	}
 
-	public void setMedallas(int medallas) {
-		this.medallas = medallas;
+	public void setMedallas(int nmedallas) {
+		this.nmedallas = nmedallas;
 	}
     
+	public void sumarMedalla() {
+	    this.nmedallas++;
+	}
+	
+	public void curarPokemones() {
+        for (Pokemon p : equipo) {
+            p.setEstado("Vivo");
+        }
+        for (Pokemon p : pc) {
+            p.setEstado("Vivo");
+        }
+    }
+	
 }

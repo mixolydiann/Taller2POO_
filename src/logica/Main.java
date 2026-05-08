@@ -22,7 +22,7 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		
 		// Cargamos las vainas estas
-		System.out.println("Iniciando sistema. . .");
+		System.out.println("Iniciando sistema . . .");
 		ArrayList<Pokemon> pokedex = cargarPokedex();
 		ArrayList<Habitat> listaZonas = cargarHabitats();
 		poblarHabitats(pokedex, listaZonas);
@@ -50,13 +50,13 @@ public class Main {
 				case 1:
 					System.out.println("Elegiste Continuar.");
 					System.out.println();
-					menuContinuar(sc,listaZonas,pokedex);
+					menuContinuar(sc,listaZonas,pokedex, listaGimnasios, listaAltoMando);
 					break;
 					
 				case 2:
 					System.out.println("Elegiste Nueva Partida.");
 					System.out.println();
-					menuNuevaPartida(sc, listaZonas);
+					menuNuevaPartida(sc, listaZonas, listaGimnasios, listaAltoMando);
 					break;
 					
 				case 3:
@@ -80,7 +80,8 @@ public class Main {
 	}
 	
 	
-	public static void menuContinuar(Scanner sc,ArrayList<Habitat> listaZonas, ArrayList<Pokemon> pokedex) {
+	
+	public static void menuContinuar(Scanner sc,ArrayList<Habitat> listaZonas, ArrayList<Pokemon> pokedex, ArrayList<Gimnasio> listaGimnasios, ArrayList<Gimnasio> listaAltoMandos) {
 		System.out.println("Cargando partida...");
 		
 		Jugador jugadorCargado = cargarPartida(pokedex);
@@ -88,14 +89,19 @@ public class Main {
 		if (jugadorCargado != null) {
 			System.out.println("Bienvenido de vuelta, "+ jugadorCargado.getApodo() + " !");
 			
-			menuPrincipalJuego(sc, jugadorCargado, listaZonas);
+			// Ultramega importante updatear el estado de los gimnasionssdsndds
+			for (int i = 0; i < jugadorCargado.getMedallas(); i++) {
+				listaGimnasios.get(i).setEstado("Derrotado");
+			}
+			
+			menuPrincipalJuego(sc, jugadorCargado, listaZonas, listaGimnasios, listaAltoMandos);
 		}  else {
 			System.out.println("No se pudo cargar la partida, cree una nueva . . .");
 		}
 		
 	}
 
-	public static void menuNuevaPartida(Scanner sc, ArrayList<Habitat> listaZonas) {
+	public static void menuNuevaPartida(Scanner sc, ArrayList<Habitat> listaZonas,ArrayList<Gimnasio> listaGimnasios, ArrayList<Gimnasio> listaAltoMandos) {
 		System.out.print("Ingrese su apodo de jugador: ");
 		String apodo = sc.nextLine();
 		Jugador nuevoJugador = new Jugador(apodo, 0);
@@ -106,12 +112,12 @@ public class Main {
 		
 		System.out.println("Bienvenido " + apodo + "!!");
 		
-		guardarPartida(nuevoJugador);
+		guardarPartida(nuevoJugador,listaGimnasios);
 		
-		menuPrincipalJuego(sc, nuevoJugador, listaZonas);
+		menuPrincipalJuego(sc, nuevoJugador, listaZonas, listaGimnasios, listaAltoMandos);
 	}
 
-	public static void menuPrincipalJuego(Scanner sc, Jugador nombreJugador, ArrayList<Habitat> listaZonas) {
+	public static void menuPrincipalJuego(Scanner sc, Jugador nombreJugador, ArrayList<Habitat> listaZonas, ArrayList<Gimnasio> listaGimnasios, ArrayList<Gimnasio> listaAltoMandos) {
 		boolean jugando = true;
 		
 		while(jugando) {
@@ -119,10 +125,10 @@ public class Main {
 			System.out.println();
 			System.out.println("1) Revisar equipo."); // done
 			System.out.println("2) Salir a capturar."); // done
-			System.out.println("3) Acceso al PC (cambiar Pokémon del equipo).");
-			System.out.println("4) Retar un gimnasio.");
+			System.out.println("3) Acceso al PC (cambiar Pokémon del equipo)."); // done
+			System.out.println("4) Retar un gimnasio."); 
 			System.out.println("5) Desafío al Alto Mando.");
-			System.out.println("6) Curar Pokémon.");
+			System.out.println("6) Curar Pokémon."); // done
 			System.out.println("7) Guardar."); // done
 			System.out.println("8) Guardar y Salir."); // done
 			
@@ -160,13 +166,93 @@ public class Main {
 					accesoPC(sc, nombreJugador);
 					break;
 				}
+				
+				case 4:{
+					System.out.println("A cual Lider deseas retar??");
+					
+					// Imprimimos la lista 
+					for (int i = 0; i < listaGimnasios.size();i++) {
+						System.out.println((i+1) + ") " + listaGimnasios.get(i).getNombreLider() + " - Estado: " + listaGimnasios.get(i).getEstado());
+					}
+					
+					System.out.println((listaGimnasios.size() + 1) + ") Volver al menu.");
+					
+					System.out.print("Ingrese Opcion: ");
+					
+					try {
+						int opt = sc.nextInt();
+						sc.nextLine();
+						
+						if (opt == listaGimnasios.size() + 1) {
+							break; // Vuelve al menu
+						} 
+						else if (opt > 0 && opt <= listaGimnasios.size()) {
+							
+							Gimnasio gymElegido = listaGimnasios.get(opt - 1);
+							
+							// No se puede retar dps de derrotar
+							if (gymElegido.getEstado().equalsIgnoreCase("Derrotado")) {
+								System.out.println();
+								System.out.println("Ya has derrotado a " + gymElegido.getNombreLider() + ". ¡Busca otro desafío!");
+							}
+							else if (nombreJugador.getMedallas() < opt - 1) {
+								System.out.println("Calmado Entrenador!!! No puedes retar a " + gymElegido.getNombreLider() + " sin haber derrotado a los lideres anteriores!!");
+								System.out.println();
+							} else {
+								
+								// Llamada de metodo static lol
+								boolean victoria = SistemaBatalla.iniciarCombate(nombreJugador, gymElegido, sc);
+								
+								// Darle la medalla al playa
+								if (victoria) {
+									nombreJugador.sumarMedalla();
+									System.out.println("¡Felicidades! Tienes un total de " + nombreJugador.getMedallas() + " medallas.");
+								}
+							}
+							
+						} else {
+							System.out.println("Error: Opción fuera de rango.");
+							System.out.println();
+						}
+						
+					} catch(InputMismatchException e) {
+						System.out.println("Error : Debes ingresar un caracter numerico valido.");
+						sc.nextLine();
+					}
+					
+					break;
+				}
+				
+				case 5:{
+					
+					if (nombreJugador.getMedallas() == listaGimnasios.size()) {
+						
+						SistemaBatalla.retarAltoMando(nombreJugador, listaAltoMandos, sc);
+						
+					} else {
+						System.out.println("Debes derrotar todos los gimnasios antes de retar al Alto Mando ! ! !");
+						break;
+					}
+					
+					break;
+				}
+				
+				case 6:{
+			
+					nombreJugador.curarPokemones();
+					System.out.println();
+					System.out.println("Tu equipo se ha recuperado !");
+					System.out.println();
+					break;
+				}
+				
 				case 7:{
-					guardarPartida(nombreJugador);
+					guardarPartida(nombreJugador,listaGimnasios);
 					break;
 				}
 				case 8:
 					System.out.println("Guardando y volviendo al menú de inicio...");
-					guardarPartida(nombreJugador);
+					guardarPartida(nombreJugador,listaGimnasios);
 					jugando = false;
 					break;
 						
@@ -256,7 +342,7 @@ public class Main {
 				
 			} catch (InputMismatchException e) {
 				
-				System.out.println("Error : Debes ingresar un caracter numerico válido.");
+				System.out.println("Error : Debes ingresar un caracter numerico valido.");
 				sc.nextLine();
 			}
 		}
@@ -569,16 +655,27 @@ public class Main {
 		}
 	}
 	
-	public static void guardarPartida(Jugador player) {
+	public static void guardarPartida(Jugador player, ArrayList<Gimnasio> listaGimnasios) {
 		
 		try {
 			// False en filewriter significa sobreescribir
 			BufferedWriter bw = new BufferedWriter(new FileWriter("Registros.txt", false));
 			
+			String medals = "";
+			
+			if (player.getMedallas() != 0) {
+				
+				for (int i = 0 ; i < player.getMedallas(); i++) {
+					
+					medals = medals.concat(";"+listaGimnasios.get(i).getNombreLider());
+					
+				}
+			}
+			
 			if (player.getMedallas() == 0) {
 				bw.write(player.getApodo() + ";none");
 			} else {
-				bw.write(player.getApodo() + ";" + player.getMedallas());
+				bw.write(player.getApodo() + ";" + medals);
 			}
 			bw.newLine();
 			
@@ -622,7 +719,7 @@ public class Main {
 	            int medallasNum = 0;
 	            
 	            if (!medallasTexto.equalsIgnoreCase("none")) {
-	                medallasNum = Integer.parseInt(medallasTexto);
+	                medallasNum = partesJugador.length - 2;
 	            }
 	            
 	            // Creamos al jugador
