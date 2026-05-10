@@ -54,13 +54,13 @@ El proyecto fue diseñado aplicando buenas prácticas de Programación Orientada
 
 ---
 
-## 📂 Entregables
+## Entregables
 Tal como se solicita en los requerimientos del taller, los siguientes documentos se encuentran en la raíz de este repositorio:
-1. `Diagrama de Clases.pdf`
-2. `Modelo de Dominio.pdf`
+1. `DiagramaClases.pdf`
+2. `ModeloDominio.pdf`
 
-## 🚀 Instrucciones de Ejecución
-1. Clonar el repositorio localmente.
+## Instrucciones de Ejecución
+1. Clonar el repositorio de manera local o descargarlo.
 2. Asegurarse de que los archivos de texto (`Pokedex.txt`, `Habitats.txt`, `Gimnasios.txt`, `Alto Mando.txt`, `Registros.txt`) estén ubicados en la raíz del proyecto.
-3. Importar el proyecto en Eclipse o su IDE de preferencia.
-4. Ejecutar la clase `logica.Main`.
+3. Importar el proyecto en Eclipse.
+4. Proceder con el `Main.java`.
